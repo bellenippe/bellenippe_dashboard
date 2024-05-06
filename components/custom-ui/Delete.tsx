@@ -18,27 +18,27 @@ import { set } from "mongoose";
 
 interface DeleteProps {
   id: string;
+  item: string;
 }
 
-export const Delete: React.FC<DeleteProps> = ({ id }) => {
+export const Delete: React.FC<DeleteProps> = ({ id, item }) => {
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/collections/${id}`, {
+      const itemType = item === "product" ? "products" : "collections";
+      const res = await fetch(`/api/${itemType}/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
-        window.location.href = "/collections";
-        toast.success("Collection supprimée avec succès");
+        window.location.href = `/${itemType}`;
+        toast.success(`${item} supprimé(e)`);
         setLoading(false);
       }
     } catch (error) {
       console.error("[Collection_DELETE]", error);
-      toast.error(
-        "Une erreur s'est produite lors de la suppression de la collection"
-      );
+      toast.error("Une erreur s'est produite lors de la suppression");
     }
   };
 
@@ -52,7 +52,7 @@ export const Delete: React.FC<DeleteProps> = ({ id }) => {
       <AlertDialogContent className=" bg-white text-black">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-red-1">
-            Etes-vous sûr de vouloir supprimer cette collection ?
+            Etes-vous sûr de vouloir supprimer {item} ?
           </AlertDialogTitle>
           <AlertDialogDescription>
             Cette action est irréversible. Vous ne pourrez pas récupérer les

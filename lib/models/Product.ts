@@ -20,7 +20,12 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    collections: [{ type: mongoose.Schema.Types.ObjectId, ref: "Collection" }],
+    collections: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Collection",
+      },
+    ],
     tags: [String],
     size: [String],
     colors: [String],

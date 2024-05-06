@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 import {
   Command,
@@ -11,8 +12,8 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "../ui/badge";
+import { X } from "lucide-react";
 
 interface MultiSelectProps {
   placeholder: string;
@@ -22,7 +23,7 @@ interface MultiSelectProps {
   onRemove: (value: string) => void;
 }
 
-export const MultiSelect: React.FC<MultiSelectProps> = ({
+const MultiSelect: React.FC<MultiSelectProps> = ({
   placeholder,
   collections,
   value,
@@ -32,35 +33,69 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
 
-  console.log(value);
+  let selected: CollectionType[];
+
+  // Pour faire apparaitre en tant que Badge, les collections choisies
+  if (value.length === 0) {
+    selected = [];
+  } else {
+    selected = value.map((id) =>
+      collections.find((collection) => collection._id === id)
+    ) as CollectionType[];
+  }
+
+  // Pour enlever de la selection, les collections déjà choisies
+  const selectables = collections.filter(
+    (collection) => !selected.includes(collection)
+  );
 
   return (
     <Command className="overflow-visible bg-white">
-      <CommandInput
-        placeholder={placeholder}
-        value={inputValue}
-        onValueChange={setInputValue}
-        onBlur={() => setOpen(false)}
-        onFocus={() => setOpen(true)}
-      />
+      <div className="flex gap-1 flex-wrap border rounded-md">
+        {selected.map((collection) => (
+          <Badge key={collection._id}>
+            {collection.title}
+            <button
+              className="ml-1 hover:text-red-1"
+              onClick={() => onRemove(collection._id)}
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        ))}
+
+        <CommandInput
+          placeholder={placeholder}
+          value={inputValue}
+          onValueChange={setInputValue}
+          onBlur={() => setOpen(false)}
+          onFocus={() => setOpen(true)}
+        />
+      </div>
 
       <div className="relative mt-2">
         {open && (
-          <CommandGroup className="absolute w-full z-10 top-0 overflow-auto border rounded-md shadow-md">
-            {collections.map((collection) => (
-              <CommandItem
-                key={collection._id}
-                onMouseDown={(e) => e.preventDefault()}
-                onSelect={() => {
-                  onChange(collection._id);
-                }}
-              >
-                {collection.title}
-              </CommandItem>
-            ))}
+          <CommandGroup>
+            <CommandList className="absolute w-full z-10 top-0 overflow-auto border rounded-md shadow-md">
+              {selectables.map((collection) => (
+                <CommandItem
+                  key={collection._id}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onSelect={() => {
+                    onChange(collection._id);
+                    setInputValue("");
+                  }}
+                  className="hover:bg-gray-500 cursor-pointer"
+                >
+                  {collection.title}
+                </CommandItem>
+              ))}
+            </CommandList>
           </CommandGroup>
         )}
       </div>
     </Command>
   );
 };
+
+export default MultiSelect;

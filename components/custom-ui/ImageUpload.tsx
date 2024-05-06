@@ -35,7 +35,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
               src={url}
               alt="collection"
               className="object-cover rounded-lg"
-              fill
+              height={100}
+              width={100}
             />
           </div>
         ))}
@@ -43,7 +44,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       <CldUploadWidget uploadPreset="s5ohf07w" onUpload={onUpload}>
         {({ open }) => {
           return (
-            <Button className="bg-grey-1 text-white" onClick={() => open()}>
+            <Button
+              type="button"
+              className="bg-grey-1 text-white"
+              onClick={() => open()}
+            >
               <Plus className="h-4 w-4 mr-2" />
               Upload an Image
             </Button>
