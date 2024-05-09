@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { title } from "process";
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -34,9 +33,8 @@ const ProductSchema = new mongoose.Schema(
       get: (v: mongoose.Schema.Types.Decimal128) => parseFloat(v.toString()), //
       required: true,
     },
-    expense: {
-      type: mongoose.Schema.Types.Decimal128,
-      get: (v: mongoose.Schema.Types.Decimal128) => parseFloat(v.toString()), //
+    stock: {
+      type: Number,
       required: true,
     },
     createdAt: { type: Date, default: Date.now },

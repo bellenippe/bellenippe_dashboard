@@ -22,10 +22,10 @@ export const POST = async (req: NextRequest) => {
       size,
       colors,
       price,
-      expense,
+      stock,
     } = await req.json();
 
-    if (!title || !description || !media || !category || !price) {
+    if (!title || !description || !media || !category || !price || !stock) {
       return new NextResponse("Ce n'est pas assez pour créer un produit", {
         status: 400,
       });
@@ -41,7 +41,7 @@ export const POST = async (req: NextRequest) => {
       size,
       colors,
       price,
-      expense,
+      stock,
     });
 
     await newProduct.save();

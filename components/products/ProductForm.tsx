@@ -36,7 +36,7 @@ const formSchema = z.object({
   size: z.array(z.string()),
   colors: z.array(z.string()),
   price: z.coerce.number().min(0.1),
-  expense: z.coerce.number().min(0.1),
+  stock: z.coerce.number().min(0.1),
 });
 
 interface ProductFormProps {
@@ -87,7 +87,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           size: [],
           colors: [],
           price: 0.1,
-          expense: 0.1,
+          stock: 1,
         },
   });
 
@@ -227,14 +227,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             />
             <FormField
               control={form.control}
-              name="expense"
+              name="stock"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Expense (€)</FormLabel>
+                  <FormLabel>Stock</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Expense du produit..."
+                      placeholder="Stock du produit..."
                       {...field}
                       onKeyDown={handleKeyPress}
                     />

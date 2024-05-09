@@ -61,7 +61,7 @@ export const POST = async (
       size,
       colors,
       price,
-      expense,
+      stock,
     } = await req.json();
     if (!title || !description || !media || !category || !price) {
       return new NextResponse("Ce n'est pas assez pour créer un produit", {
@@ -106,7 +106,7 @@ export const POST = async (
         size,
         colors,
         price,
-        expense,
+        stock,
       },
       { new: true }
     ).populate({ path: "collections", model: Collection });
