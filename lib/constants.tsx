@@ -20,16 +20,16 @@ export const navLinks = [
   {
     url: "/products",
     icon: <Tag />,
-    label: "Products",
+    label: "Produits",
   },
   {
     url: "/orders",
     icon: <ShoppingBag />,
-    label: "Orders",
+    label: "Commandes",
   },
   {
     url: "/customers",
     icon: <UsersRound />,
-    label: "Customers",
+    label: "Clients",
   },
 ];

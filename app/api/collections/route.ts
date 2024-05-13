@@ -1,8 +1,6 @@
 import Collection from "@/lib/models/Collection";
 import { connectToDB } from "@/lib/mongoDB";
 import { auth } from "@clerk/nextjs/server";
-import { create } from "domain";
-import { connect } from "http2";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -47,7 +45,14 @@ export const GET = async (req: NextRequest) => {
 
     const collections = await Collection.find();
 
-    return NextResponse.json(collections, { status: 200 });
+    return new NextResponse(JSON.stringify(collections), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": `${process.env.ECOMMERCE_STORE_URL}`,
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
   } catch (error) {
     console.error("[collections_GET]", error);
     return new NextResponse("Internal Server Error", { status: 500 });

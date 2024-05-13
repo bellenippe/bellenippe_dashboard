@@ -2,7 +2,6 @@ import Collection from "@/lib/models/Collection";
 import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
 import { auth } from "@clerk/nextjs/server";
-import { create } from "domain";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -63,7 +62,7 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
     await connectToDB();
 
@@ -72,7 +71,14 @@ export const GET = async (req: NextRequest) => {
       model: Collection,
     });
 
-    return NextResponse.json(products, { status: 200 });
+    return new NextResponse(JSON.stringify(products), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": `${process.env.ECOMMERCE_STORE_URL}`,
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
   } catch (error) {
     console.log("[products_GET]", error);
     return new NextResponse("Internal Server Error", { status: 500 });

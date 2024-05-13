@@ -12,7 +12,10 @@ export const GET = async (
   try {
     await connectToDB();
 
-    const collection = await Collection.findById(params.collectionId);
+    const collection = await Collection.findById(params.collectionId).populate({
+      path: "products",
+      model: Product,
+    });
 
     if (!collection) {
       return new NextResponse(
@@ -21,7 +24,14 @@ export const GET = async (
       );
     }
 
-    return NextResponse.json(collection, { status: 200 });
+    return new NextResponse(JSON.stringify(collection), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": `${process.env.ECOMMERCE_STORE_URL}`,
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
   } catch (error) {
     console.log("[collectionsID_GET]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
@@ -98,3 +108,5 @@ export const DELETE = async (
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
+
+export const dynamic = "force dynamic";
