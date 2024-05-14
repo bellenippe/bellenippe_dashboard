@@ -10,7 +10,7 @@ export const columns: ColumnDef<CollectionType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/collections/${row.original._id}`}
-        className="hover:text-red-500"
+        className="hover:text-[#63817C]"
       >
         {row.original.title}
       </Link>
@@ -18,7 +18,7 @@ export const columns: ColumnDef<CollectionType>[] = [
   },
   {
     accessorKey: "products",
-    header: "Products",
+    header: "Produits",
     cell: ({ row }) => <p>{row.original.products.length}</p>,
   },
   {

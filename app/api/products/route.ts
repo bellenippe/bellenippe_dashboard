@@ -1,15 +1,25 @@
 import Collection from "@/lib/models/Collection";
 import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
-import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { userId } = auth();
-    if (!userId) {
+    const session = await getServerSession();
+
+    interface User {
+      name?: string;
+      email?: string;
+      role?: string;
+    }
+
+    const user = session?.user as User;
+
+    if (!session || user.email !== process.env.ADMIN_EMAIL) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+
     await connectToDB();
     const {
       title,

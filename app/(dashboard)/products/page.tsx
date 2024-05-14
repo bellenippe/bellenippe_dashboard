@@ -1,54 +1,10 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import Products from "@/components/products/Products";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-import { DataTable } from "@/components/custom-ui/DataTable";
-import { Loader } from "@/components/custom-ui/Loader";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Plus } from "lucide-react";
-import { columns } from "./ProductColumns";
+export default async function ProductPage() {
+  const session = await getServerSession();
+  if (!session) redirect("/api/auth/signin?callbackUrl=/products");
 
-export default function ProductPage() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState<ProductType[]>([]);
-
-  const getProducts = async () => {
-    try {
-      const res = await fetch("/api/products", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      setProducts(data);
-      setLoading(false);
-    } catch (error) {
-      console.log("[getProducts]", error);
-    }
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  return loading ? (
-    <Loader />
-  ) : (
-    <section className="px-10 pt-5">
-      <div className="flex items-center justify-between">
-        <p className="text-heading2-bold">Collections</p>
-        <Button
-          className=" bg-blue-600 text-white"
-          onClick={() => router.push("/products/new")}
-        >
-          <Plus className="mr-1 h-4 w-4" /> Créer un produit
-        </Button>
-      </div>
-      <Separator className="bg-black my-4" />
-      <DataTable columns={columns} data={products} searchKey="title" />
-    </section>
-  );
+  return <Products />;
 }

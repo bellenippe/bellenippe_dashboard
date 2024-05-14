@@ -1,8 +1,8 @@
 import { connectToDB } from "@/lib/mongoDB";
-import { auth } from "@clerk/nextjs/server";
 import Collection from "@/lib/models/Collection";
 import { NextRequest, NextResponse } from "next/server";
 import Product from "@/lib/models/Product";
+import { getServerSession } from "next-auth";
 
 //! Récupérer une collection par son ID
 export const GET = async (
@@ -44,8 +44,22 @@ export const POST = async (
   { params }: { params: { collectionId: string } }
 ) => {
   try {
-    const { userId } = auth();
-    if (!userId) {
+    // const { userId } = auth;
+    // if (!userId) {
+    //   return new NextResponse("Unauthorized", { status: 401 });
+    // }
+    const session = await getServerSession();
+
+    interface User {
+      name?: string;
+      email?: string;
+      role?: string;
+    }
+
+    const user = session?.user as User;
+    console.log("LA SESSION COllPOST", session);
+
+    if (!session || user.email !== process.env.ADMIN_EMAIL) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -85,8 +99,18 @@ export const DELETE = async (
   { params }: { params: { collectionId: string } }
 ) => {
   try {
-    const { userId } = auth();
-    if (!userId) {
+    const session = await getServerSession();
+
+    interface User {
+      name?: string;
+      email?: string;
+      role?: string;
+    }
+
+    const user = session?.user as User;
+    console.log("LA SESSION COllPOST", session);
+
+    if (!session || user.email !== process.env.ADMIN_EMAIL) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

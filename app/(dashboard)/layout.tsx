@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
 import LeftSideBar from "../../components/layout/LeftSideBar";
 import TopBar from "../../components/layout/TopBar";
 import { ToasterProvider } from "@/lib/ToasterProvider";
+
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/lib/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,23 +16,26 @@ export const metadata: Metadata = {
   description: "Administration du site Belle Nippe",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
   return (
-    <ClerkProvider>
-      <html lang="fr">
-        <body className={inter.className}>
+    // <ClerkProvider>
+    <html lang="fr">
+      <body className={inter.className}>
+        <SessionProvider session={session}>
           <ToasterProvider />
           <div className="flex max-lg:flex-col text-black">
             <LeftSideBar />
             <TopBar />
             <div className="flex-1">{children}</div>
           </div>
-        </body>
-      </html>
-    </ClerkProvider>
+        </SessionProvider>
+      </body>
+    </html>
+    // </ClerkProvider>
   );
 }

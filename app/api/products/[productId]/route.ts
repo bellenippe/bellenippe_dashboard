@@ -3,6 +3,7 @@ import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 
 //! Récupérer une product par son ID
 export const GET = async (
@@ -43,8 +44,17 @@ export const POST = async (
   { params }: { params: { productId: string } }
 ) => {
   try {
-    const { userId } = auth();
-    if (!userId) {
+    const session = await getServerSession();
+
+    interface User {
+      name?: string;
+      email?: string;
+      role?: string;
+    }
+
+    const user = session?.user as User;
+
+    if (!session || user.email !== process.env.ADMIN_EMAIL) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -132,8 +142,17 @@ export const DELETE = async (
   { params }: { params: { productId: string } }
 ) => {
   try {
-    const { userId } = auth();
-    if (!userId) {
+    const session = await getServerSession();
+
+    interface User {
+      name?: string;
+      email?: string;
+      role?: string;
+    }
+
+    const user = session?.user as User;
+
+    if (!session || user.email !== process.env.ADMIN_EMAIL) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

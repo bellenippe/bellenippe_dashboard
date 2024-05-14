@@ -161,6 +161,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     placeholder="Nom du produit..."
                     {...field}
                     onKeyDown={handleKeyPress}
+                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
                   />
                 </FormControl>
                 <FormMessage className="text-red-1" />
@@ -179,6 +180,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     {...field}
                     rows={5}
                     onKeyDown={handleKeyPress}
+                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
                   />
                 </FormControl>
                 <FormMessage className="text-red-1" />
@@ -219,6 +221,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       placeholder="Prix du produit..."
                       {...field}
                       onKeyDown={handleKeyPress}
+                      className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
                     />
                   </FormControl>
                   <FormMessage className="text-red-1" />
@@ -237,6 +240,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       placeholder="Stock du produit..."
                       {...field}
                       onKeyDown={handleKeyPress}
+                      className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
                     />
                   </FormControl>
                   <FormMessage className="text-red-1" />
@@ -254,6 +258,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       placeholder="Catégorie du produit..."
                       {...field}
                       onKeyDown={handleKeyPress}
+                      className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
                     />
                   </FormControl>
                   <FormMessage className="text-red-1" />
@@ -365,12 +370,15 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             />
           </div>
           <div className="flex gap-10">
-            <Button type="submit" className=" bg-blue-600 text-white">
+            <Button
+              type="submit"
+              className="text-white bg-[#63817C] text-[1rem] rounded-xl hover:bg-[#2d8072] transition-all duration-200 ease-in-out"
+            >
               Confirmer
             </Button>
             <Button
               type="submit"
-              className=" bg-blue-600 text-white"
+              className="text-white bg-[#696363] text-[1rem] rounded-xl hover:bg-[#3a3535] transition-all duration-200 ease-in-out"
               onClick={() => router.push("/products")}
             >
               Annuler

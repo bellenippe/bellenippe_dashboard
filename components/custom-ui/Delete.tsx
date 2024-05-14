@@ -45,11 +45,11 @@ export const Delete: React.FC<DeleteProps> = ({ id, item }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button className="bg-red-1 text-white">
-          <Trash className="h-4 w-4" />
+        <Button className=" text-white rounded-xl hover:bg-[#ff4c4c] transition-all duration-200 ease-in-out">
+          <Trash className="text-black h-4 w-4" />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className=" bg-white text-black">
+      <AlertDialogContent className=" bg-white text-black rounded-xl">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-red-1">
             Etes-vous sûr de vouloir supprimer {item} ?
@@ -60,8 +60,13 @@ export const Delete: React.FC<DeleteProps> = ({ id, item }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Annuler</AlertDialogCancel>
-          <AlertDialogAction className=" bg-red-1" onClick={onDelete}>
+          <AlertDialogCancel className="text-white bg-[#63817C] rounded-xl border-none hover:bg-[#696363] hover:text-white">
+            Annuler
+          </AlertDialogCancel>
+          <AlertDialogAction
+            className="text-white bg-red-1 rounded-xl border-none hover:bg-[#ff4444]"
+            onClick={onDelete}
+          >
             Supprimer
           </AlertDialogAction>
         </AlertDialogFooter>
