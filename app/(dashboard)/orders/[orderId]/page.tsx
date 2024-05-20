@@ -48,3 +48,5 @@ export default async function OrderDetailsPage({
     </section>
   );
 }
+
+export const dynamic = "force-dynamic";

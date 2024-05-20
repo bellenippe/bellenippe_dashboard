@@ -20,3 +20,5 @@ export default async function CustomerPage() {
     </div>
   );
 }
+
+export const dynamic = "force-dynamic";
