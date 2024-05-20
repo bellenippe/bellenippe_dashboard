@@ -3,7 +3,7 @@ import Order from "@/lib/models/Order";
 import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
 import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { stripe } from "../../../lib/stripe";
 
 export const POST = async (req: NextRequest) => {
   try {
