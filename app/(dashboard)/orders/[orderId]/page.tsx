@@ -7,7 +7,12 @@ export default async function OrderDetailsPage({
 }: {
   params: { orderId: string };
 }) {
-  const res = await fetch(`http://localhost:3000/api/orders/${params.orderId}`);
+  const res = await fetch(`/api/orders/${params.orderId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   const { orderDetails, customer } = await res.json();
 
