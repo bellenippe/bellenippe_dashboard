@@ -7,7 +7,10 @@ export const columns: ColumnDef<OrderColumnType>[] = [
     accessorKey: "_id",
     header: "Commande",
     cell: ({ row }) => (
-      <Link href={`/orders/${row.original._id}`} className="hover:text-red-500">
+      <Link
+        href={`/orders/${row.original._id}`}
+        className="hover:text-[#63817C]"
+      >
         {row.original._id}
       </Link>
     ),
