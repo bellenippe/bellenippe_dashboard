@@ -11,7 +11,12 @@ export default function Orders() {
 
   const getOrders = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/orders");
+      const res = await fetch("/api/orders", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await res.json();
       setOrders(data);
       setLoading(false);
