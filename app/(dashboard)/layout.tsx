@@ -26,7 +26,7 @@ export default async function RootLayout({
     // <ClerkProvider>
     <html lang="fr">
       <body className={inter.className}>
-        <SessionProvider session={session}>
+        <SessionProvider session={session} basePath="/api/auth">
           <ToasterProvider />
           <div className="flex max-lg:flex-col text-black">
             <LeftSideBar />
