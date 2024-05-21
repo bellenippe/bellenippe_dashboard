@@ -1,18 +1,14 @@
 import { DataTable } from "@/components/custom-ui/DataTable";
 import { columns } from "@/components/orderItems/OrderItemsColumns";
-import React from "react";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export default async function OrderDetailsPage({
   params,
 }: {
   params: { orderId: string };
 }) {
-  const res = await fetch(`/api/orders/${params.orderId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`);
 
   const { orderDetails, customer } = await res.json();
 
