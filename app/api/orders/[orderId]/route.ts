@@ -1,5 +1,6 @@
 import Customer from "@/lib/models/Customer";
 import Order from "@/lib/models/Order";
+import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,7 +12,7 @@ export const GET = async (
     await connectToDB();
     const orderDetails = await Order.findById(params.orderId).populate({
       path: "products.product",
-      model: "Product",
+      model: Product,
     });
 
     if (!orderDetails) {
