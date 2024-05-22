@@ -50,6 +50,8 @@ export const POST = async (req: NextRequest) => {
         };
       });
 
+      console.log("[webhooks_POST] orderItems", orderItems);
+
       //! Création de la commande pour la stocker dans la database
       await connectToDB();
 

@@ -11,6 +11,7 @@ export default async function OrderDetailsPage({
   const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`);
 
   const { orderDetails, customer } = await res.json();
+  console.log(orderDetails);
 
   const { street, city, state, postalCode, country } =
     orderDetails.shippingAdress;
