@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -36,7 +35,7 @@ const formSchema = z.object({
   size: z.array(z.string()),
   colors: z.array(z.string()),
   price: z.coerce.number().min(0.1),
-  stock: z.coerce.number().min(0.1),
+  stock: z.coerce.number().min(0),
 });
 
 interface ProductFormProps {
@@ -74,8 +73,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     defaultValues: initialData
       ? {
           ...initialData,
-          collections:
-            initialData.collections?.map((collection) => collection._id) || [],
+          collections: initialData.collections?.map(
+            (collection) => collection._id
+          ),
         }
       : {
           title: "",

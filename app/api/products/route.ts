@@ -4,6 +4,7 @@ import { connectToDB } from "@/lib/mongoDB";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
+//! CREER UN NOUVEAU PRODUIT
 export const POST = async (req: NextRequest) => {
   try {
     const session = await getServerSession();

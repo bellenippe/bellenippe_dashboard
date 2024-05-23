@@ -28,6 +28,7 @@ type OrderColumnType = {
   products: number;
   totalAmount: number;
   createdAt: string;
+  statut: string;
 };
 
 type OrderItemType = {

@@ -1,7 +1,6 @@
 import Collection from "@/lib/models/Collection";
 import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
-import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 
@@ -39,6 +38,7 @@ export const GET = async (
   }
 };
 
+//! MODIFIER UN PRODUIT
 export const POST = async (
   req: NextRequest,
   { params }: { params: { productId: string } }
@@ -95,6 +95,9 @@ export const POST = async (
       (collectionId: string) => !collections.includes(collectionId)
     );
 
+    console.log("addedCollections", addedCollections);
+    console.log("removedCollections", removedCollections);
+
     // Cette fonction update les collections du produits qu'on modifie
     await Promise.all([
       ...addedCollections.map((collectionId: string) =>
@@ -137,6 +140,7 @@ export const POST = async (
   }
 };
 
+//! SUPPRIMER UN PRODUIT
 export const DELETE = async (
   req: NextRequest,
   { params }: { params: { productId: string } }

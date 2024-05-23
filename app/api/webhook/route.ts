@@ -84,6 +84,26 @@ export const POST = async (req: NextRequest) => {
           orders: [newOrder._id],
         });
       }
+
+      //! Récupération des infos de la commande afin de l'envoyer pr mail
+      const customerDetails = {
+        name: customerInfo.name,
+        email: customerInfo.email,
+        address: shippingAdress,
+        order: {
+          products: orderItems,
+          shippingRate: session?.shipping_cost?.shipping_rate,
+          totalAmount: session.amount_total ? session.amount_total / 100 : 0,
+        },
+      };
+
+      await fetch("api/send", {
+        method: "POST",
+        body: JSON.stringify({
+          customerDetails,
+        }),
+      });
+
       await customer.save();
     }
 

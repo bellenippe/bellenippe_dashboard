@@ -41,6 +41,10 @@ export default async function OrderDetailsPage({
           Livraison :{" "}
           <span className="text-base-medium">{orderDetails.shippingRate}</span>
         </p>
+        <p className="text-base-bold">
+          Statut :{" "}
+          <span className="text-base-medium">{orderDetails.statut}</span>
+        </p>
       </div>
       <DataTable
         columns={columns}

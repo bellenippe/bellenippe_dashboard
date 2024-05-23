@@ -26,6 +26,7 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  statut: { type: String, default: "En attente" },
 });
 
 const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);

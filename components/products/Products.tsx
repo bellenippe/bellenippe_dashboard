@@ -39,7 +39,7 @@ export default function Products() {
   ) : (
     <section className="px-10 pt-5">
       <div className="flex items-center justify-between">
-        <p className="text-heading2-bold">Collections</p>
+        <p className="text-heading2-bold">Produits</p>
         <Button
           className="flex gap-2 bg-[#63817C] rounded-xl text-white hover:bg-[#696363] transition-all duration-200 ease-in-out"
           onClick={() => router.push("/products/new")}

@@ -28,6 +28,10 @@ export const columns: ColumnDef<OrderColumnType>[] = [
     header: "Total (€)",
   },
   {
+    accessorKey: "statut",
+    header: "Statut",
+  },
+  {
     accessorKey: "createdAt",
     header: "Date",
   },
