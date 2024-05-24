@@ -46,6 +46,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
+
+  //! Récupérer les collections
   const [collections, setCollections] = useState<CollectionType[]>([]);
 
   const getCollections = async () => {
@@ -67,7 +69,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     getCollections();
   }, []);
 
-  // Initialisation du formulaire
+  //! Initialisation du formulaire
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
@@ -91,7 +93,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         },
   });
 
-  // Fonction appelée lors de l'appui sur la touche "Entrée" pour empêcher le rechargement de la page et éviter le submit du formulaire (je crois)
+  //! Fonction appelée lors de l'appui sur la touche "Entrée" pour empêcher le rechargement de la page et éviter le submit du formulaire (je crois)
   const handleKeyPress = (
     e:
       | React.KeyboardEvent<HTMLInputElement>
@@ -102,7 +104,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
     }
   };
 
-  // Fonction appelée lors de la soumission du formulaire pour envoyer les données au serveur
+  //! Fonction appelée lors de la soumission du formulaire pour envoyer les données au serveur
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = initialData
@@ -130,9 +132,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       toast.error("Erreur lors de la création du produit");
     }
   };
-
-  console.log("initialData", initialData);
-  console.log("collections", collections);
 
   return loading ? (
     <Loader />

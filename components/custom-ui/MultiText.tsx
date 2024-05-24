@@ -22,6 +22,7 @@ const MultiText: React.FC<MultiTextProps> = ({
     onChange(item);
     setInputValue("");
   };
+
   return (
     <>
       <Input

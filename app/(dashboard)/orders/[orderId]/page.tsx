@@ -1,5 +1,7 @@
 import { DataTable } from "@/components/custom-ui/DataTable";
 import { columns } from "@/components/orderItems/OrderItemsColumns";
+import UpdateStatut from "@/components/orders/UpdateStatut";
+import { cache } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -8,10 +10,11 @@ export default async function OrderDetailsPage({
 }: {
   params: { orderId: string };
 }) {
-  const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`);
+  const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`, {
+    cache: "no-store",
+  });
 
   const { orderDetails, customer } = await res.json();
-  console.log(orderDetails);
 
   const { street, city, state, postalCode, country } =
     orderDetails.shippingAdress;
@@ -41,10 +44,12 @@ export default async function OrderDetailsPage({
           Livraison :{" "}
           <span className="text-base-medium">{orderDetails.shippingRate}</span>
         </p>
-        <p className="text-base-bold">
+        {/* <p className="text-base-bold">
           Statut :{" "}
           <span className="text-base-medium">{orderDetails.statut}</span>
-        </p>
+        </p> */}
+
+        <UpdateStatut orderDetails={orderDetails} />
       </div>
       <DataTable
         columns={columns}

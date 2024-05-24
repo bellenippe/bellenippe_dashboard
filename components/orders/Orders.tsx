@@ -19,6 +19,7 @@ export default function Orders() {
       });
       const data = await res.json();
       setOrders(data);
+      console.log("[getOrders]", data);
       setLoading(false);
     } catch (error) {
       console.log("[getOrders]", error);

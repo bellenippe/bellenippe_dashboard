@@ -80,6 +80,7 @@ export const POST = async (
       price,
       stock,
     } = await req.json();
+
     if (!title || !description || !media || !category || !price) {
       return new NextResponse("Ce n'est pas assez pour créer un produit", {
         status: 400,
@@ -113,7 +114,7 @@ export const POST = async (
       ),
     ]);
 
-    //update product
+    // update product
     const updatedProduct = await Product.findByIdAndUpdate(
       params.productId,
       {

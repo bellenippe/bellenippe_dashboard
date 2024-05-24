@@ -97,12 +97,7 @@ export const POST = async (req: NextRequest) => {
       //   },
       // };
 
-      // await fetch("api/send", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     customerDetails,
-      //   }),
-      // });
+      // await fetch("api/send-email");
 
       await customer.save();
     }

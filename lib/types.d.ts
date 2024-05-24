@@ -29,6 +29,7 @@ type OrderColumnType = {
   totalAmount: number;
   createdAt: string;
   statut: string;
+  // statut: "pending" | "processing" | "shipped" | "delivered";
 };
 
 type OrderItemType = {
