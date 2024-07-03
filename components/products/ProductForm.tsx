@@ -27,6 +27,7 @@ import { Loader } from "../custom-ui/Loader";
 // Définition du schéma des données du formulaire
 const formSchema = z.object({
   title: z.string().min(2).max(50),
+  slug: z.string().min(2).max(50),
   description: z.string().min(2).max(500),
   media: z.array(z.string()),
   category: z.string(),
@@ -81,6 +82,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
         }
       : {
           title: "",
+          slug: "",
           description: "",
           media: [],
           category: "",
@@ -106,6 +108,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
   //! Fonction appelée lors de la soumission du formulaire pour envoyer les données au serveur
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(values);
     try {
       const url = initialData
         ? `/api/products/${initialData._id}`
@@ -160,7 +163,25 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     placeholder="Nom du produit..."
                     {...field}
                     onKeyDown={handleKeyPress}
-                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
+                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out placeholder:text-gray-400"
+                  />
+                </FormControl>
+                <FormMessage className="text-red-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="slug"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Slug</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="nom-du-produit-pour-url"
+                    {...field}
+                    onKeyDown={handleKeyPress}
+                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out placeholder:text-gray-400"
                   />
                 </FormControl>
                 <FormMessage className="text-red-1" />
@@ -179,7 +200,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                     {...field}
                     rows={5}
                     onKeyDown={handleKeyPress}
-                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
+                    className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out placeholder:text-gray-400"
                   />
                 </FormControl>
                 <FormMessage className="text-red-1" />
@@ -257,7 +278,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                       placeholder="Catégorie du produit..."
                       {...field}
                       onKeyDown={handleKeyPress}
-                      className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
+                      className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out placeholder:text-gray-400"
                     />
                   </FormControl>
                   <FormMessage className="text-red-1" />

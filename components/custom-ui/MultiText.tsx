@@ -35,7 +35,7 @@ const MultiText: React.FC<MultiTextProps> = ({
             addValue(inputValue);
           }
         }}
-        className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out"
+        className="rounded-xl focus:border-[#63817C] hover:border-[#63817C] transition-all duration-200 ease-in-out placeholder:text-gray-400"
       />
       <div className="flex gap-1 flex-wrap mt-4">
         {value.map((item, index) => (

@@ -24,6 +24,7 @@ export const POST = async (req: NextRequest) => {
     await connectToDB();
     const {
       title,
+      slug,
       description,
       media,
       collections,
@@ -43,6 +44,7 @@ export const POST = async (req: NextRequest) => {
 
     const newProduct = await Product.create({
       title,
+      slug,
       description,
       media,
       collections,

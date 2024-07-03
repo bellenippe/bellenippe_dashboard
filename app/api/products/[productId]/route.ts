@@ -38,6 +38,40 @@ export const GET = async (
   }
 };
 
+//! Récupérer une product par son SLUG
+// export const GETBYSLUG = async (
+//   req: NextRequest,
+//   { params }: { params: { slug: string } }
+// ) => {
+//   try {
+//     await connectToDB();
+
+//     const product = await Product.findById(params.slug).populate({
+//       path: "collections",
+//       model: Collection,
+//     });
+
+//     if (!product) {
+//       return new NextResponse(
+//         JSON.stringify({ message: "Product not found" }),
+//         { status: 404 }
+//       );
+//     }
+
+//     return new NextResponse(JSON.stringify(product), {
+//       status: 200,
+//       headers: {
+//         "Access-Control-Allow-Origin": `${process.env.ECOMMERCE_STORE_URL}`,
+//         "Access-Control-Allow-Methods": "GET",
+//         "Access-Control-Allow-Headers": "Content-Type",
+//       },
+//     });
+//   } catch (error) {
+//     console.log("[productsID_GET]", error);
+//     return new NextResponse("Internal Server Error", { status: 500 });
+//   }
+// };
+
 //! MODIFIER UN PRODUIT
 export const POST = async (
   req: NextRequest,
@@ -70,6 +104,7 @@ export const POST = async (
 
     const {
       title,
+      slug,
       description,
       media,
       collections,
@@ -99,26 +134,29 @@ export const POST = async (
     console.log("addedCollections", addedCollections);
     console.log("removedCollections", removedCollections);
 
-    // Cette fonction update les collections du produits qu'on modifie
-    await Promise.all([
-      ...addedCollections.map((collectionId: string) =>
-        Collection.findByIdAndUpdate(collectionId, {
-          $push: { products: params.productId },
-        })
-      ),
+    if (addedCollections.length > 0 || removedCollections.length > 0) {
+      await Promise.all([
+        ...addedCollections.map((collectionId: string) =>
+          Collection.findByIdAndUpdate(collectionId, {
+            $push: { products: params.productId },
+          })
+        ),
 
-      ...removedCollections.map((collectionId: string) =>
-        Collection.findByIdAndUpdate(collectionId, {
-          $pull: { products: params.productId },
-        })
-      ),
-    ]);
+        ...removedCollections.map((collectionId: string) =>
+          Collection.findByIdAndUpdate(collectionId, {
+            $pull: { products: params.productId },
+          })
+        ),
+      ]);
+    }
+    // Cette fonction update les collections du produits qu'on modifie
 
     // update product
     const updatedProduct = await Product.findByIdAndUpdate(
       params.productId,
       {
         title,
+        slug,
         description,
         media,
         collections,
