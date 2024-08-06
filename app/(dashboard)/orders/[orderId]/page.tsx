@@ -9,16 +9,16 @@ export default async function OrderDetailsPage({
 }: {
   params: { orderId: string };
 }) {
-  // const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`, {
-  //   cache: "no-store",
-  // });
+  const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`, {
+    cache: "no-store",
+  });
 
-  const res = await fetch(
-    `http://localhost:3000/api/orders/${params.orderId}`,
-    {
-      cache: "no-store",
-    }
-  );
+  // const res = await fetch(
+  //   `http://localhost:3000/api/orders/${params.orderId}`,
+  //   {
+  //     cache: "no-store",
+  //   }
+  // );
 
   const { orderDetails, customer } = await res.json();
 

@@ -11,7 +11,7 @@ export const options = {
 
         let userRole = "Google User";
 
-        if (profile?.email == "inthegleam01@gmail.com") {
+        if (profile?.email == "bellenippe@gmail.com") {
           userRole = "admin";
         }
 
