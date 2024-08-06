@@ -22,8 +22,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
+
   return (
-    // <ClerkProvider>
     <html lang="fr">
       <body className={inter.className}>
         <SessionProvider session={session} basePath="/api/auth">
@@ -36,6 +36,5 @@ export default async function RootLayout({
         </SessionProvider>
       </body>
     </html>
-    // </ClerkProvider>
   );
 }

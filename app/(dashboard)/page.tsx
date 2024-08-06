@@ -1,8 +1,8 @@
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { options } from "../api/auth/[...nextauth]/options";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 export default async function Home() {
   const session = await getServerSession(options);

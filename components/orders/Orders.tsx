@@ -30,6 +30,8 @@ export default function Orders() {
     getOrders();
   }, []);
 
+  console.log("[Orders] orders", orders);
+
   return loading ? (
     <Loader />
   ) : (

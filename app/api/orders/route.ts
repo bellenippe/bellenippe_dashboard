@@ -3,7 +3,6 @@ import Order from "@/lib/models/Order";
 import { connectToDB } from "@/lib/mongoDB";
 import { NextRequest, NextResponse } from "next/server";
 import { format } from "date-fns";
-import { auth } from "@clerk/nextjs/server";
 
 export const GET = async (req: NextRequest) => {
   try {

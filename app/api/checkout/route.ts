@@ -27,10 +27,10 @@ export async function POST(req: NextRequest) {
       },
       shipping_options: [
         {
-          shipping_rate: "shr_1PEZ1SP1p1SXpE4xRuT0GZQW",
+          shipping_rate: "shr_1PkmkEP88vLE0nblmpKfzrHJ", // Livraison standard
         },
         {
-          shipping_rate: "shr_1PEZ3AP1p1SXpE4xbbmfFOhr",
+          shipping_rate: "shr_1PkmrUP88vLE0nblStQZ5h9L", // Livraison express
         },
       ],
       line_items: cartItems.map((cartItem: any) => ({

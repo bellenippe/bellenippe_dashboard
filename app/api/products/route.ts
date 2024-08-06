@@ -36,7 +36,15 @@ export const POST = async (req: NextRequest) => {
       stock,
     } = await req.json();
 
-    if (!title || !description || !media || !category || !price || !stock) {
+    if (
+      !title ||
+      !slug ||
+      !description ||
+      !media ||
+      !category ||
+      !price ||
+      !stock
+    ) {
       return new NextResponse("Ce n'est pas assez pour créer un produit", {
         status: 400,
       });

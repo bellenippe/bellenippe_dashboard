@@ -1,7 +1,6 @@
 import { DataTable } from "@/components/custom-ui/DataTable";
 import { columns } from "@/components/orderItems/OrderItemsColumns";
 import UpdateStatut from "@/components/orders/UpdateStatut";
-import { cache } from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -10,11 +9,20 @@ export default async function OrderDetailsPage({
 }: {
   params: { orderId: string };
 }) {
-  const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`, {
-    cache: "no-store",
-  });
+  // const res = await fetch(`${baseUrl}/api/orders/${params.orderId}`, {
+  //   cache: "no-store",
+  // });
+
+  const res = await fetch(
+    `http://localhost:3000/api/orders/${params.orderId}`,
+    {
+      cache: "no-store",
+    }
+  );
 
   const { orderDetails, customer } = await res.json();
+
+  console.log("ORDER DETAILS", orderDetails);
 
   const { street, city, state, postalCode, country } =
     orderDetails.shippingAdress;
