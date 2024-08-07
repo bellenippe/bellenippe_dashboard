@@ -219,6 +219,11 @@ export const DELETE = async (
         })
       )
     );
+
+    return new NextResponse(
+      JSON.stringify({ message: "Product deleted successfully" }),
+      { status: 200 }
+    );
   } catch (error) {
     console.log("[productId_DELETE]", error);
     return new NextResponse("Internal Error", { status: 500 });
