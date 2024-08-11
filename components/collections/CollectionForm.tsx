@@ -24,7 +24,7 @@ import { Delete } from "../custom-ui/Delete";
 // Définition du schéma des données du formulaire
 const formSchema = z.object({
   title: z.string().min(2).max(50),
-  description: z.string().min(2).max(500),
+  description: z.string().min(2).max(1000),
   image: z.string(),
 });
 
